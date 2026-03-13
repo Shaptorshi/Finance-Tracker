@@ -35,6 +35,7 @@ const Register = () => {
       const data = await response.json();
       console.log(data);
       if (response.ok) {
+        // localStorage.setItem('registeredUser',JSON.stringify(data));
         navigate('/login');
       }
 

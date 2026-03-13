@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import { Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Register from './pages/Register'
@@ -16,23 +17,25 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-
-    <Routes>
-      <Route element={<Dashboard />} path='/' />
-      <Route element={<LoggedDashboard />} path='/logged'>
-        {/* relative paths which is nested route also known to be child route */}
-        {/* known to be child paths and the normal paths are known to be relative paths */}
-        <Route index element={<FinanceDashboard />} />
-        <Route element={<Transactions />} path='transactions' />
-        <Route element={<Analytics />} path='analytics' />
-        <Route element={<Debts />} path='debts' />
-        <Route element={<Categories />} path='categories' />
-        <Route element={<Reports />} path='reports' />
-        <Route element={<Settings />} path='settings' />
-      </Route>
-      <Route element={<Register />} path='/register' />
-      <Route element={<Login />} path='/login' />
-    </Routes>
+    <>
+      <ToastContainer autoClose={2500} />
+      <Routes>
+        <Route element={<Dashboard />} path='/' />
+        <Route element={<LoggedDashboard />} path='/logged'>
+          {/* relative paths which is nested route also known to be child route */}
+          {/* known to be child paths and the normal paths are known to be relative paths */}
+          <Route index element={<FinanceDashboard />} />
+          <Route element={<Transactions />} path='transactions' />
+          <Route element={<Analytics />} path='analytics' />
+          <Route element={<Debts />} path='debts' />
+          <Route element={<Categories />} path='categories' />
+          <Route element={<Reports />} path='reports' />
+          <Route element={<Settings />} path='settings' />
+        </Route>
+        <Route element={<Register />} path='/register' />
+        <Route element={<Login />} path='/login' />
+      </Routes>
+    </>
   )
 }
 
