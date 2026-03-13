@@ -26,6 +26,6 @@ export const budgetValidate = z.object({
     balance: z.number({ error: "Balance must be a number" }).min(0, 'Amount must be greater than 0'),
     interestRate: z.number({ error: "Interest Rate must be a number" }).min(0, 'Interest Rate cannot be negative').max(100, 'Interest Rate cannot exceed 100%'),
     minimumPayment: z.number({ error: "Minimum Payment must be a number" }).min(0, 'Minimum payment cannot be negative'),
-    userId: z.string().nonempty('User ID is required')
+    // userId: z.string().nonempty('User ID is required')
 
 })

@@ -74,12 +74,26 @@ export const Login = async (req: Request, res: Response) => {
             message: "User Logged In Successfully",
             token,
             user: {
-                id: existedUser._id,
+                _id: existedUser._id,
+                name: existedUser.name,
                 email: existedUser.email,
-                password: existedUser.password
             }
         })
     } catch (error) {
         res.status(500).json({ message: "Error occurred while logging" })
+    }
+}
+export const editUser = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const {name,email} = req.body;
+        const saved = await USER.findByIdAndUpdate(id, {name,email}, { new: true })
+
+        if(!saved){
+            return res.status(404).json({message:"User not found"})
+        }
+        res.status(200).json(saved);
+    } catch (error) {
+        res.status(500).json({message:error});
     }
 }

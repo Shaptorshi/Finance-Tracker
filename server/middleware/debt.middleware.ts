@@ -8,7 +8,9 @@ interface AuthRequest extends Request {
 
 export const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
+
         const authHeader = req.headers.authorization;
+        // console.log('Secret in middleware: ',authHeader)
 
         if (!authHeader) {
             return res.status(401).json({ message: "no token provided" })
@@ -16,7 +18,9 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
 
         const token = authHeader.split(" ")[1];
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string) as { userId: string };
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY as string) as { userId: string }
+
+        req.userId = decoded.userId
 
         req.userId = (decoded as any).userId;
 

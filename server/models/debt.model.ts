@@ -1,7 +1,7 @@
 import mongoose, { ObjectId, Schema } from 'mongoose'
 
-interface budgetType {
-    userId:string
+interface debtType {
+    // userId:string,
     name: string,
     balance: number,
     interestRate: number,
@@ -9,8 +9,8 @@ interface budgetType {
     createdAt: Date
 }
 
-const budgetSchema = new Schema<budgetType>({
-    userId: { type: String, required: true },
+const debtSchema = new Schema<debtType>({
+    // userId: { type: String, required: true },
     name: { type: String, required: true },
     balance: { type: Number, required: true },
     interestRate: { type: Number, required: true },
@@ -18,4 +18,4 @@ const budgetSchema = new Schema<budgetType>({
     createdAt: { type: Date, default: Date.now() }
 }, { timestamps: true })
 
-export const debt = mongoose.model('budgets', budgetSchema)
+export const debt = mongoose.model<debtType>('budgets', debtSchema)

@@ -3,10 +3,7 @@ import { budgetValidate } from '../validations/user.validation'
 import { debt } from '../models/debt.model'
 
 
-interface AuthRequest extends Request {
-    userId?: string
-}
-export const addDebts = async (req: AuthRequest, res: Response) => {
+export const addDebts = async (req: Request, res: Response) => {
     try {
         const parsed = budgetValidate.safeParse(req.body);
 
@@ -17,23 +14,28 @@ export const addDebts = async (req: AuthRequest, res: Response) => {
         const { name, balance, interestRate, minimumPayment } = req.body;
 
         const debts = await debt.create({
-            name, balance, interestRate, minimumPayment, userId: req.userId
+            name, balance, interestRate, minimumPayment
         })
-
-        return res.status(200).json(debts)
+        // console.log(`USER ID: ${req.userId}`)
+        return res.status(200).json({
+            // id:debts._id,
+            name: debts.name,
+            balance: debts.balance,
+            interestRate: debts.interestRate,
+            minimumPayment: debts.minimumPayment
+        })
     } catch (error) {
         return res.status(500).json({ message: error })
     }
 }
 
-export const getDebts = async (req: AuthRequest, res: Response) => {
+export const getDebts = async (req: Request, res: Response) => {
     try {
-        const debts = await debt.find({ userId: req.userId });
+        const debts = await debt.find();
         res.status(200).json(debts);
     } catch (error) {
         res.status(500).json({ message: error })
     }
-
 }
 
 export const updateDebts = async (req: Request, res: Response) => {
@@ -44,5 +46,15 @@ export const updateDebts = async (req: Request, res: Response) => {
         res.status(200).json(debts);
     } catch (error) {
         res.status(500).json({ message: error });
+    }
+}
+
+export const deleteDebts = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const deleted = await debt.findByIdAndDelete(id);
+        res.status(200).json(deleted)
+    } catch (error) {
+        res.status(500).json({ message: error })
     }
 }
