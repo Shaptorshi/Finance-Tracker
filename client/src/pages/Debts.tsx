@@ -105,6 +105,7 @@ const Debts = () => {
       try {
         const token = localStorage.getItem('loginToken');
         const response = await fetch(`http://localhost:3000/api/debts`, {
+          method:`GET`,
           headers: {
             Authorization: `Bearer ${token}`
           }

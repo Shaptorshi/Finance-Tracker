@@ -3,11 +3,16 @@ import { BadgeIndianRupeeIcon, BanknoteArrowDown, BanknoteArrowUp, PiggyBank, Pl
 import { ExpenseChart, IncomeVsExpenseChart } from '../components/ExpensesChart'
 import Transactions from './Transactions';
 
-
+type CategoryType = {
+  _id: string,
+  name: string,
+  type: `income` | `expense`
+}
 
 const FinanceDashboard = () => {
   // const totalIncome = records.filter(r=>r.type === "income")
   const [records, setRecords] = useState<any[]>([]);
+  const [categories, setCategories] = useState<CategoryType[]>([])
   const [formData, setFormData] = useState({
     category: "",
     amount: ""
@@ -20,18 +25,19 @@ const FinanceDashboard = () => {
 
   const balance = totalIncome - totalExpense;
   const savings = balance;
-  
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
   const handleSubmit = async (type: "income" | "expense", e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3000/api/financialRecords', {
+      const response = await fetch(`http://localhost:3000/api/financialRecords`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem(`loginToken`)}`
         },
         body: JSON.stringify({
           type,
@@ -40,8 +46,9 @@ const FinanceDashboard = () => {
         })
       })
       const data = await response.json();
-      setRecords(prev => [...prev, data]);
+      setRecords(prev => [...prev, data.records]);
 
+      // (categories.length === 0) ? `${alert(`Please first create atleast one category`)}` : ``
       setFormData({
         category: "",
         amount: ""
@@ -56,7 +63,13 @@ const FinanceDashboard = () => {
   useEffect(() => {
     const fetchRecords = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/financialRecords');
+        const token = localStorage.getItem(`loginToken`);
+        const response = await fetch('http://localhost:3000/api/financialRecords', {
+          method: `GET`,
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
         const data = await response.json();
         setRecords(data);
       } catch (error) {
@@ -64,8 +77,21 @@ const FinanceDashboard = () => {
       }
     }
     fetchRecords();
-  }, [records])
-  const transactionsRecords = ()=>{
+
+    const fetchCategories = async () => {
+      const token = localStorage.getItem(`loginToken`);
+      const response = await fetch(`http://localhost:3000/api/categories`, {
+        method: `GET`,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      const data = await response.json();
+      setCategories(data);
+    }
+    fetchCategories();
+  }, [])
+  const transactionsRecords = () => {
     [...records].slice(-5).reverse()
   }
   const cards = [
@@ -94,7 +120,8 @@ const FinanceDashboard = () => {
       color: "green"
     }
   ]
-
+  const filteredIncomeCategories = categories.filter(c => c.type === "income")
+  const filteredExpenseCategories = categories.filter(c => c.type === "expense")
   return (
     <section className='min-h-screen'>
       <div className='flex mt-4 gap-4 cascadia'>
@@ -121,12 +148,19 @@ const FinanceDashboard = () => {
                   {/* Category */}
                   <div>
                     <label className=''>Category</label>
-                    <input type="text" placeholder='Salary / Freelance' className='w-full border rounded-md p-2 mt-1' value={formData.category} name='category' onChange={handleChange}/>
+                    <select className="flex border p-2 mt-2 rounded-md" name="category" value={formData.category} onChange={handleChange}>
+                      <option>Select Category</option>
+                      {filteredIncomeCategories.map((category) => (
+                        <option key={category._id} value={category._id}>
+                          {category.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   {/* Amount */}
                   <div>
                     <label className=''>Amount</label>
-                    <input type="number" placeholder='₹ Amount' className='w-full border rounded-md p-2 mt-1 ' value={formData.amount} name='amount' onChange={handleChange}/>
+                    <input type="number" placeholder='₹ Amount' className='w-full border rounded-md p-2 mt-1 ' value={formData.amount} name='amount' onChange={handleChange} />
                   </div>
                   <button className='w-full bg-green-600 text-white py-2 rounded-md cursor-pointer hover:bg-green-700'>
                     Add Income
@@ -156,12 +190,19 @@ const FinanceDashboard = () => {
                   {/* Category */}
                   <div>
                     <label className=''>Category</label>
-                    <input type="text" placeholder='Food, Rent, Transport...' className='w-full border rounded-md p-2 mt-1' name='category' onChange={handleChange} value={formData.category}/>
+                    <select className="flex border p-2 mt-2 rounded-md" name="category" value={formData.category} onChange={handleChange}>
+                      <option value="">Select Category</option>
+                      {filteredExpenseCategories.map((category) => (
+                        <option key={category._id} value={category._id}>
+                          {category.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   {/* Amount */}
                   <div>
                     <label className=''>Amount</label>
-                    <input type="number" placeholder='₹ Amount' className='w-full border rounded-md p-2 mt-1 ' name='amount' onChange={handleChange} value={formData.amount}/>
+                    <input type="number" placeholder='₹ Amount' className='w-full border rounded-md p-2 mt-1 ' name='amount' onChange={handleChange} value={formData.amount} />
                   </div>
                   <button className='w-full bg-red-600 text-white py-2 rounded-md cursor-pointer hover:bg-red-700'>
                     Add Expense
@@ -194,7 +235,7 @@ const FinanceDashboard = () => {
       <div className='grid md:grid-cols-2 gap-6 mt-10'>
         <ExpenseChart records={records} />
         <IncomeVsExpenseChart records={records} />
-        <Transactions records={transactionsRecords}/>
+        <Transactions records={transactionsRecords} />
       </div>
     </section>
   )

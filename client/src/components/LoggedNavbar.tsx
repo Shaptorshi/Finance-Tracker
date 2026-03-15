@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Menu, X,Search,Bell,User } from 'lucide-react'
+import { Menu, X, Search, Bell, User } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 const LoggedNavbar = () => {
@@ -15,6 +15,19 @@ const LoggedNavbar = () => {
           <li className='font-semibold samurai-font hover:text-[#1D4ED8] cursor-pointer transition-all duration-400 ease-in-out'><Bell /></li>
           <li className='font-semibold samurai-font hover:text-[#1D4ED8] cursor-pointer transition-all duration-400 ease-in-out'><User /></li>
         </ul>
+        <button className='lg:hidden' onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button>
+
+        {
+          open && (
+            <div className='absolute top-16 w-56 bg-blue-100 backdrop-blur-xl border border-white rounded-xl p-4'>
+              <ul className='flex flex-col gap-3'>
+                <li className='font-semibold samurai-font hover:text-[#1D4ED8] cursor-pointer transition-all duration-400 ease-in-out'><Search /></li>
+                <li className='font-semibold samurai-font hover:text-[#1D4ED8] cursor-pointer transition-all duration-400 ease-in-out'><Bell /></li>
+                <li className='font-semibold samurai-font hover:text-[#1D4ED8] cursor-pointer transition-all duration-400 ease-in-out'><User /></li>
+              </ul>
+            </div>
+          )
+        }
       </div>
     </nav>
   )

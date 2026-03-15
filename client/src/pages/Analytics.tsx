@@ -7,12 +7,18 @@ const Analytics = () => {
 
   useEffect(() => {
     const fetchRecords = async () => {
-      const response = await fetch('http://localhost:3000/api/financialRecords');
+      const token = localStorage.getItem(`loginToken`)
+      const response = await fetch('http://localhost:3000/api/financialRecords',{
+        method:`GET`,
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      });
       const data = await response.json();
       setRecords(data);
     }
     fetchRecords();
-  }, [records])
+  }, [])
   return (
     <div>
       <div className='mt-10'>

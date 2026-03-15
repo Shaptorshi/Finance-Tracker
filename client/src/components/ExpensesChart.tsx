@@ -1,25 +1,47 @@
 import { ResponsiveContainer, BarChart, PieChart, Pie, Bar, Legend, XAxis, YAxis, Tooltip, CartesianGrid, Cell, LineChart, Line } from "recharts"
-
+import { useEffect, useState } from 'react'
 const colors = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"]
 type RecordType = {
+    name: string,
     date: string | number | Date
-    type: string,
+    type: `income` | `expense`,
     category: string,
     amount: number
 }
+
 export const ExpenseChart = ({ records }: { records: RecordType[] }) => {
 
+    const [categories, setCategories] = useState<any[]>([])
     const expenses = (records ?? []).filter((r) => r.type === "expense");
     const categoryTotals: { [key: string]: number } = {}
 
+    const getCategoryName = (id: string): string =>
+        categories.find(c => c._id === id)?.name || `Others`
     expenses.forEach(exp => {
-        categoryTotals[exp.category] = (categoryTotals[exp.category] || 0) + exp.amount;
+        const categoryName = getCategoryName(exp.category);
+        categoryTotals[categoryName] = (categoryTotals[categoryName] || 0) + exp.amount;
     })
 
-    const data = Object.entries(categoryTotals).map(([category, amount]) => ({
-        name: category,
+    const data = Object.entries(categoryTotals).map(([name, amount]) => ({
+        name,
         value: amount
     }))
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const token = localStorage.getItem(`loginToken`);
+            const response = await fetch(`http://localhost:3000/api/categories`, {
+                method: `GET`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            })
+            const data = await response.json();
+            setCategories(data);
+        }
+        fetchCategories()
+    }, [])
+
     return (
         <div className="">
             <h2 className="text-lg font-semibold mb-4 cascadia">Expense Distribution</h2>
@@ -43,8 +65,8 @@ export const ExpenseChart = ({ records }: { records: RecordType[] }) => {
 
 export const IncomeVsExpenseChart = ({ records }: { records: RecordType[] }) => {
 
-    const totalIncome = (records ?? []).filter(r => r.type === "income").reduce((acc, curr) => acc + curr.amount, 0);
-    const totalExpense = (records ?? []).filter(r => r.type === 'expense').reduce((acc, curr) => acc + curr.amount, 0);
+    const totalIncome = Array.isArray(records) ? (records ?? []).filter(r => r.type === "income").reduce((acc, curr) => acc + curr.amount, 0) : []
+    const totalExpense = Array.isArray(records) ? (records ?? []).filter(r => r.type === 'expense').reduce((acc, curr) => acc + curr.amount, 0) : [];
 
     const data = [
         { name: "Income", amount: totalIncome },
@@ -71,7 +93,7 @@ export const MonthlySpendingChart = ({ records }: { records: RecordType[] }) => 
 
     const monthlyExpenses: any = {};
 
-    (records ?? []).forEach((record) => {
+    Array.isArray(records) ? (records ?? []).forEach((record) => {
         if (record.type === 'expense') {
             const date = new Date(record.date);
             const month = date.toLocaleString('default', { month: 'short' })
@@ -84,7 +106,7 @@ export const MonthlySpendingChart = ({ records }: { records: RecordType[] }) => 
             monthlyExpenses[month].expense += record.amount;
 
         }
-    })
+    }) : []
 
     const chartData = Object.values(monthlyExpenses)
 
@@ -107,24 +129,46 @@ export const MonthlySpendingChart = ({ records }: { records: RecordType[] }) => 
 
 export const ExpenseCategoryComparisonChart = ({ records }: { records: RecordType[] }) => {
 
-    const expenses = records.filter(r => r.type === 'expense');
+    const expenses = Array.isArray(records) ? records.filter(r => r.type === 'expense') : [];
+    const [categories, setCategories] = useState<any[]>([]);
 
-    const categoryTotal: any = {};
+    const categoryTotal: { [key: string]: number } = {};
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const token = localStorage.getItem(`loginToken`);
+            const response = await fetch(`http://localhost:3000/api/categories`, {
+                method: `GET`,
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            })
+            const data = await response.json();
+            setCategories(data);
+        }
+        fetchCategories()
+    }, [])
 
-    expenses.forEach(e => categoryTotal[e.category] = (categoryTotal[e.category] || 0) + e.amount)
+    const getCategoryName = (id: string): string =>
+        categories.find(c => c._id === id)?.name || `Others`
 
-    const data = Object.entries(categoryTotal).map(([category,amount])=>({
-        category,
+    expenses.forEach(e => {
+        const categoryName = getCategoryName(e.category)
+        categoryTotal[categoryName] = (categoryTotal[categoryName] || 0) + e.amount;
+    })
+
+    const data = Object.entries(categoryTotal).map(([name, amount]) => ({
+        name,
         amount
     }))
-    
+
     return (
         <div className="bg-white border border-gray-400 rounded-xl p-5">
             <h2 className="text-lg font-semibold mb-4 cascadia">Category Spending Comparison</h2>
             <ResponsiveContainer width={`100%`} height={300}>
                 <BarChart data={data}>
                     <CartesianGrid strokeDasharray={`3 3`} />
-                    <XAxis dataKey={`category`} />
+                    <XAxis dataKey={`name`} />
                     <YAxis />
                     <Legend />
                     <Tooltip />
