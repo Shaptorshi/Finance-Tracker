@@ -29,3 +29,8 @@ export const budgetValidate = z.object({
     // userId: z.string().nonempty('User ID is required')
 
 })
+
+export const categoryValidate = z.object({
+    name:z.string(),
+    type:z.enum([`income`,`expense`],`Type is required`)
+})

@@ -1,25 +1,25 @@
 import mongoose, { Schema, ObjectId } from 'mongoose'
 
 interface recordType {
-    _id: ObjectId,
+    userId: string
     type: "income" | "expense",
-    category: string,
+    category: ObjectId,
     amount: number,
     date: Date,
-    userId: string
     createdAt: Date
-    updatedAt:Date
+    updatedAt: Date
 }
 
 const recordSchema = new Schema<recordType>({
+    userId: { type: String, required: true },
     type: {
         type: String,
         enum: ['income', 'expense'],
         required: true
     },
     category: {
-        type: String,
-        required: true
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"category"
     },
     amount: {
         type: Number,
@@ -27,11 +27,8 @@ const recordSchema = new Schema<recordType>({
     },
     date: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     },
-    userId: {
-        type: String,
-    }
 }, {
     timestamps: true
 })

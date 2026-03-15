@@ -1,9 +1,10 @@
+import express, { Application } from 'express'
+import session from 'express-session'
 import dotenv from 'dotenv'
 
 dotenv.config();
 
 import { dbConnect } from './config/db';
-import express, { Application } from 'express'
 import cors from 'cors';
 import userRoutes from './routes/user.route'
 
@@ -17,6 +18,16 @@ app.use(cors({
 }))
 app.use(express.json());
 app.use('/api',userRoutes);
+// app.use(session({
+//     name:`sid`,
+//     secret:process.env.SESSION_SECRET as string,
+//     resave:false,
+//     saveUninitialized:false,
+//     cookie:{
+//         httpOnly:true,
+//         maxAge:1000 * 60 * 60 * 24
+//     }
+// }))
 
 const startServer = async() => {
     await dbConnect();

@@ -1,6 +1,7 @@
-import mongoose, { Schema,Document } from 'mongoose'
+import mongoose, { Schema, Document, ObjectId } from 'mongoose'
 
-export interface userType extends Document{
+export interface userType extends Document {
+    // userId: ObjectId,
     name: string,
     email: string,
     password: string,
@@ -9,6 +10,11 @@ export interface userType extends Document{
 }
 
 const userSchema = new Schema<userType>({
+    // userId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref:`user`,
+    //     // required:true
+    // },
     name: {
         type: String,
         required: true
@@ -22,12 +28,12 @@ const userSchema = new Schema<userType>({
     },
     password: {
         type: String,
-        required: true,  
+        required: true,
     },
 },
     {
-        timestamps:true
+        timestamps: true
     }
 )
 
-export const USER = mongoose.model<userType>('financeTracker',userSchema)
+export const USER = mongoose.model<userType>('financeTracker', userSchema)

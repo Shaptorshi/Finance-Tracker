@@ -1,29 +1,27 @@
-import mongoose,{ ObjectId,Schema } from 'mongoose'
+import mongoose, { ObjectId, Schema } from 'mongoose'
 
-interface categoryType{
-    _id:ObjectId,
-    userId:ObjectId,
-    name:string,
-    icon:string,
-    type:"income"|"expense"
+interface categoryType {
+    userId: string,
+    name: string,
+    type: "income" | "expense"
+    createdAt: Date
 }
 
 const categorySchema = new Schema<categoryType>({
-    userId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
+    userId: {
+        type: String
     },
-    name:{
-        type:String,
-        required:true
+    name: {
+        type: String,
+        required: true
     },
-    icon:{
-        type:String,
-    },
-    type:{
-        type:String,
-        enum:['income','expense']
+    type: {
+        type: String,
+        enum: ['income', 'expense']
     }
-})
+},
+    {
+        timestamps: true
+    })
 
-export const category = mongoose.model('categories',categorySchema)
+export const category = mongoose.model<categoryType>('categories', categorySchema)
