@@ -33,7 +33,7 @@ export const getDebts = async (req: AuthRequest, res: Response) => {
     }
 }
 
-export const updateDebts = async (req: Request, res: Response) => {
+export const updateDebts = async (req: AuthRequest, res: Response) => {
     try {
         const { id } = req.params;
         const updates = req.body;

@@ -16,7 +16,7 @@ router.get('/financialRecords', authMiddleware, getFinancialRecords)
 
 router.post('/debts', authMiddleware, addDebts);
 router.get('/debts', authMiddleware, getDebts);
-router.put('/debts', authMiddleware, updateDebts);
+router.put('/debts/:id', authMiddleware, updateDebts);
 router.patch('/debts/:id', authMiddleware, payDebts)
 router.delete('/debts/:id', authMiddleware, deleteDebts);
 
