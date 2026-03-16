@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { Settings, LogOut, LayoutDashboard, ChartSpline, Wallet, Target, Folder, BarChart3 } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Settings, LogOut, LayoutDashboard, ChartSpline, Wallet, Target, Folder } from 'lucide-react'
+
 import { useAuth } from '../context/userContext'
 
 const SideBar = () => {

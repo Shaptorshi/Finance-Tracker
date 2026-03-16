@@ -56,7 +56,7 @@ const Login = () => {
         <p className='cascadia text-center text-lg max-w-md'>Track Expenses • Reduce Debt</p>
         <PieChart height={260} width={360} className='cascadia'>
           <Pie data={data} dataKey={'value'} label>
-            {data.map((entry, idx) => (
+            {data.map((_entry, idx) => (
               <Cell key={idx} fill={Colors[idx % Colors.length]} />
             ))}
           </Pie>

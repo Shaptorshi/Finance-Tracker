@@ -1,4 +1,4 @@
-import React from 'react'
+
 import {PieChart,Shield,Wallet,TrendingDown} from 'lucide-react'
 import {motion} from 'framer-motion'
 

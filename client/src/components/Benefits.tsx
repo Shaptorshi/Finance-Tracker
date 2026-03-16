@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { motion } from 'framer-motion'
 import { Target, LayoutDashboard, Rocket, BarChart, Shield, CheckCircle } from 'lucide-react'
 const b = [

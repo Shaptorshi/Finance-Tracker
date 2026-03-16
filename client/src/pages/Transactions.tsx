@@ -13,7 +13,7 @@ type CategoryType = {
   type: `income` | `expense`
 }
 
-const Transactions = () => {
+const Transactions = ({ record }: any) => {
 
   const [records, setRecords] = useState<RecordType[]>([])
   const [categories, setCategories] = useState<CategoryType[]>([])

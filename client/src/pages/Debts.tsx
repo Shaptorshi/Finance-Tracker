@@ -5,7 +5,6 @@ type DebtType = {
   _id: string,
   name: string,
   totalAmount: number,
-  // balance: number,
   interestRate: number,
   minimumPayment: number,
 }
@@ -310,8 +309,8 @@ const Debts = () => {
                 <X className='mb-4 cursor-pointer' onClick={() => setIsPayable(false)} />
               </div>
               <div className='flex flex-col gap-3'>
-                <input className='border p-2 rounded' type="number" placeholder='Enter payment' value={payment} onChange={(e) => setPayment(Number(e.target.value))} />
-                <button className='bg-blue-500 rounded p-2 text-white hover:bg-blue-600 cursor-pointer' onClick={payDebt} disabled={payment <= 0}>Pay</button>
+                <input className='border p-2 rounded' type="number" placeholder='Enter payment' value={payment} onChange={(e) => setPayment((e.target.value))} />
+                <button className='bg-blue-500 rounded p-2 text-white hover:bg-blue-600 cursor-pointer' onClick={payDebt}>Pay</button>
               </div>
             </div>
           </div>
