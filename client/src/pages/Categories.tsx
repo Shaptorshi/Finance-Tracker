@@ -121,13 +121,13 @@ const Categories = () => {
             onClick={() => setShowModal(false)}
           />
           <div className="relative bg-white p-6 rounded-xl w-96">
-            <div className='flex items-center justify-between mb-4'>
-              <h3 className="text-lg font-semibold">
+            <div className='flex items-center justify-between mb-5'>
+              <h3 className="text-2xl font-semibold samurai-font">
                 Add Category
               </h3>
               <X onClick={() => setShowModal(false)} className='cursor-pointer' />
             </div>
-            <form className="space-y-4" onSubmit={handleSubmit}>
+            <form className="space-y-4 cascadia" onSubmit={handleSubmit}>
               <input
                 type="text"
                 name="name"
@@ -145,7 +145,7 @@ const Categories = () => {
                 <option value="income">Income</option>
                 <option value="expense">Expense</option>
               </select>
-              <button className="w-full bg-blue-600 text-white py-2 rounded-md">
+              <button className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 cursor-pointer">
                 Add Category
               </button>
             </form>

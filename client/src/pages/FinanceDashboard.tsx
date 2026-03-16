@@ -127,7 +127,7 @@ const FinanceDashboard = () => {
       <div className='flex mt-4 gap-4 cascadia'>
         <button className='flex items-center gap-2 px-4 py-2 bg-green-600 rounded-md hover:bg-green-700 cursor-pointer text-white' onClick={() => setShowIncomeModal(true)}><Plus size={18} />Add Income</button>
         <button className='flex items-center gap-2 px-4 py-2 bg-red-600 rounded-md hover:bg-red-700 cursor-pointer text-white' onClick={() => setShowExpenseModal(true)}><Plus size={18} />Add Expenses</button>
-        <button className='flex items-center gap-2 px-4 py-2 bg-blue-600 rounded-md hover:bg-blue-700 cursor-pointer text-white'><BarChart3 size={18} />View Reports</button>
+        {/* <button className='flex items-center gap-2 px-4 py-2 bg-blue-600 rounded-md hover:bg-blue-700 cursor-pointer text-white'><BarChart3 size={18} />View Reports</button> */}
         {showIncomeModal && (
           <div className='fixed inset-0 z-50 flex items-center justify-center'>
             <div className='absolute inset-0 bg-black/40' onClick={() => setShowIncomeModal(false)}></div>
