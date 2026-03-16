@@ -8,7 +8,7 @@ const Analytics = () => {
   useEffect(() => {
     const fetchRecords = async () => {
       const token = localStorage.getItem(`loginToken`)
-      const response = await fetch('http://localhost:3000/api/financialRecords',{
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/financialRecords`,{
         method:`GET`,
         headers:{
           Authorization:`Bearer ${token}`

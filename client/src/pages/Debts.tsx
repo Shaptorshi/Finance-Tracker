@@ -52,7 +52,7 @@ const Debts = () => {
     try {
       const token = localStorage.getItem(`loginToken`);
       if(!isEditable) return;
-      const response = await fetch(`http://localhost:3000/api/debts/${isEditable}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/debts/${isEditable}`, {
         method: `PUT`,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -77,7 +77,7 @@ const Debts = () => {
     try {
       const token = localStorage.getItem(`loginToken`);
 
-      const response = await fetch(`http://localhost:3000/api/debts/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/debts/${id}`, {
         method: `DELETE`,
         headers: {
           Authorization: `Bearer ${token}`
@@ -105,7 +105,7 @@ const Debts = () => {
       // const user = JSON.parse(localStorage.getItem('loggedUser')||`{}`);
       // const userId = user._id;
       const token = localStorage.getItem(`loginToken`);
-      const response = await fetch(`http://localhost:3000/api/debts`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/debts`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -140,7 +140,7 @@ const Debts = () => {
     if (!selectedDebtId) return;
     try {
       const token = localStorage.getItem(`loginToken`)
-      const response = await fetch(`http://localhost:3000/api/debts/${selectedDebtId}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/debts/${selectedDebtId}`, {
         method: `PATCH`,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -170,7 +170,7 @@ const Debts = () => {
     const fetchRecords = async () => {
       try {
         const token = localStorage.getItem('loginToken');
-        const response = await fetch(`http://localhost:3000/api/debts`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/debts`, {
           method: `GET`,
           headers: {
             Authorization: `Bearer ${token}`

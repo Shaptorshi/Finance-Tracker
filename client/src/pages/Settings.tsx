@@ -35,7 +35,7 @@ const Settings = () => {
     const token = localStorage.getItem('loginToken');
     const user = JSON.parse(localStorage.getItem('loggedUser') || '{}');
     const userId = user._id;
-    const response = await fetch(`http://localhost:3000/api/settings/${userId}`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/settings/${userId}`, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json",

@@ -14,7 +14,6 @@ import Reports from './pages/Reports'
 import Settings from './pages/Settings'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>

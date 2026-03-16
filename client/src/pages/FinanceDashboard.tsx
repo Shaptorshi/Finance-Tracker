@@ -33,7 +33,7 @@ const FinanceDashboard = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3000/api/financialRecords`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/financialRecords`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const FinanceDashboard = () => {
     const fetchRecords = async () => {
       try {
         const token = localStorage.getItem(`loginToken`);
-        const response = await fetch('http://localhost:3000/api/financialRecords', {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/financialRecords`, {
           method: `GET`,
           headers: {
             Authorization: `Bearer ${token}`
@@ -80,7 +80,7 @@ const FinanceDashboard = () => {
 
     const fetchCategories = async () => {
       const token = localStorage.getItem(`loginToken`);
-      const response = await fetch(`http://localhost:3000/api/categories`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/categories`, {
         method: `GET`,
         headers: {
           Authorization: `Bearer ${token}`

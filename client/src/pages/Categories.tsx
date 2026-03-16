@@ -20,7 +20,7 @@ const Categories = () => {
   const handleDelete = async (id: string) => {
     try {
       const token = localStorage.getItem(`loginToken`);
-      const response = await fetch(`http://localhost:3000/api/categories/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/categories/${id}`, {
         method: `DELETE`,
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +39,7 @@ const Categories = () => {
     e.preventDefault();
 
     const token = localStorage.getItem(`loginToken`)
-    const response = await fetch(`http://localhost:3000/api/categories`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/categories`, {
       method: `POST`,
       headers: {
         "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const Categories = () => {
     const fetchCategories = async () => {
       try {
         const token = localStorage.getItem(`loginToken`)
-        const response = await fetch(`http://localhost:3000/api/categories`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/categories`, {
           method: `GET`,
           headers: {
             "Content-Type": "application/json",

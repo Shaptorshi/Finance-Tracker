@@ -21,7 +21,7 @@ const Transactions = () => {
 
   useEffect(() => {
     const fetchRecords = async () => {
-      const response = await fetch('http://localhost:3000/api/financialRecords', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/financialRecords`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem(`loginToken`)}`
         }
@@ -32,7 +32,7 @@ const Transactions = () => {
     fetchRecords();
     const fetchCategories = async () => {
       const token = localStorage.getItem(`loginToken`)
-      const response = await fetch(`http://localhost:3000/api/categories`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/categories`, {
         method: `GET`,
         headers: {
           Authorization: `Bearer ${token}`,
@@ -61,9 +61,9 @@ const Transactions = () => {
       <h2 className="text-lg font-semibold mb-4 cascadia">
         Recent Transactions
       </h2>
-        <input type="text" className='cascadia border border-gray-500 px-3 py-2 rounded-md mb-3 w-full outline-none' placeholder='Search transactions' name='searchBar' value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+      <input type="text" className='cascadia border border-gray-500 px-3 py-2 rounded-md mb-3 w-full outline-none' placeholder='Search transactions' name='searchBar' value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
       <div className="bg-white border border-gray-400 rounded-xl p-4 space-y-3">
         {filteredRecords.map((record, idx) => (
           <div
