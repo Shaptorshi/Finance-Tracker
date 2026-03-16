@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000
 const app: Application = express();
 
 app.use(cors({
-    origin: `${process.env.FRONTEND_URL}`,
+    origin: `https://finsense-lyart.vercel.app`,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     credentials: true
 }))
