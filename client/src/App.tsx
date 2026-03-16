@@ -9,7 +9,6 @@ import Transactions from './pages/Transactions'
 import Analytics from './pages/Analytics'
 import Debts from './pages/Debts'
 import Categories from './pages/Categories'
-import Reports from './pages/Reports'
 import Settings from './pages/Settings'
 
 function App() {
@@ -27,7 +26,6 @@ function App() {
           <Route element={<Analytics />} path='analytics' />
           <Route element={<Debts />} path='debts' />
           <Route element={<Categories />} path='categories' />
-          <Route element={<Reports />} path='reports' />
           <Route element={<Settings />} path='settings' />
         </Route>
         <Route element={<Register />} path='/register' />
