@@ -1,5 +1,4 @@
 import express, { Application } from 'express'
-import session from 'express-session'
 import dotenv from 'dotenv'
 
 dotenv.config();
@@ -12,24 +11,14 @@ const port = process.env.PORT || 3000
 const app: Application = express();
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: `${process.env.FRONTEND_URL}`,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-    credentials:true
+    credentials: true
 }))
 app.use(express.json());
-app.use('/api',userRoutes);
-// app.use(session({
-//     name:`sid`,
-//     secret:process.env.SESSION_SECRET as string,
-//     resave:false,
-//     saveUninitialized:false,
-//     cookie:{
-//         httpOnly:true,
-//         maxAge:1000 * 60 * 60 * 24
-//     }
-// }))
+app.use('/api', userRoutes);
 
-const startServer = async() => {
+const startServer = async () => {
     await dbConnect();
     app.listen(port, () => { console.log(`Server listening on PORT ${port}`) })
 }
