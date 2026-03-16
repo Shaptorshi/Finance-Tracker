@@ -235,7 +235,7 @@ const FinanceDashboard = () => {
       <div className='grid md:grid-cols-2 gap-6 mt-10'>
         <ExpenseChart records={records} />
         <IncomeVsExpenseChart records={records} />
-        <Transactions records={transactionsRecords} />
+        <Transactions />
       </div>
     </section>
   )

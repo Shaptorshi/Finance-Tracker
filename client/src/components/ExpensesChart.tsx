@@ -50,7 +50,7 @@ export const ExpenseChart = ({ records }: { records: RecordType[] }) => {
                 <ResponsiveContainer width={`100%`} height={300}>
                     <PieChart>
                         <Pie cx={`50%`} cy={`50%`} data={data} dataKey={`value`} nameKey={`name`} outerRadius={100} innerRadius={40} label>
-                            {data.map((entry, idx) => (
+                            {data.map((_entry, idx) => (
                                 <Cell key={idx} fill={colors[idx % colors.length]} />
                             ))}
                         </Pie>
