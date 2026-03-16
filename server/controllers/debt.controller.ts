@@ -13,10 +13,10 @@ export const addDebts = async (req: AuthRequest, res: Response) => {
             return res.status(400).json({ message: parsed.error.issues[0].message })
         }
 
-        const { name, balance, interestRate, minimumPayment } = req.body;
+        const { name, totalAmount, interestRate, minimumPayment } = req.body;
 
         const debts = await debt.create({
-            userId: req.userId, name, balance, interestRate, minimumPayment
+            userId: req.userId, name, totalAmount, interestRate, minimumPayment
         })
         return res.status(200).json(debts)
     } catch (error) {
@@ -41,6 +41,30 @@ export const updateDebts = async (req: Request, res: Response) => {
         res.status(200).json(debts);
     } catch (error) {
         res.status(500).json({ message: error });
+    }
+}
+
+export const payDebts = async (req: AuthRequest, res: Response) => {
+    try {
+        const { amount } = req.body
+        const { id } = req.params;
+        const debts = await debt.findById(id);
+
+        if (!debts) return res.status(404).json({ message: `Debt not found` });
+
+        debts.totalAmount = debts.totalAmount - amount;
+
+        if (debts.totalAmount <= 0) {
+            await debt.findByIdAndDelete(id);
+            return res.status(200).json({
+                message: `Debt fully paid and cleared.`
+            })
+        }
+
+        await debts.save()
+        res.status(200).json(debts)
+    } catch (error) {
+        res.status(500).json({ message: error })
     }
 }
 

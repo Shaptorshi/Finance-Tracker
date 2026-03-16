@@ -1,7 +1,7 @@
 import express from 'express';
 import { Register, Login, editUser } from '../controllers/user.controller'
 import { addFinancialRecords, getFinancialRecords } from '../controllers/records.controller'
-import { addDebts, updateDebts, getDebts, deleteDebts } from '../controllers/debt.controller'
+import { addDebts, updateDebts, getDebts, deleteDebts, payDebts } from '../controllers/debt.controller'
 import { addCategory, deleteCategory, getCategory, updateCategory } from '../controllers/category.controller'
 import { authMiddleware } from '../middleware/debt.middleware'
 
@@ -17,6 +17,7 @@ router.get('/financialRecords', authMiddleware, getFinancialRecords)
 router.post('/debts', authMiddleware, addDebts);
 router.get('/debts', authMiddleware, getDebts);
 router.put('/debts', authMiddleware, updateDebts);
+router.patch('/debts/:id', authMiddleware, payDebts)
 router.delete('/debts/:id', authMiddleware, deleteDebts);
 
 router.post('/categories', authMiddleware, addCategory)

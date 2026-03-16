@@ -3,7 +3,8 @@ import mongoose, { ObjectId, Schema } from 'mongoose'
 interface debtType {
     userId: string,
     name: string,
-    balance: number,
+    // balance: number,
+    totalAmount: number,
     interestRate: number,
     minimumPayment: number,
     createdAt: Date
@@ -11,9 +12,10 @@ interface debtType {
 
 const debtSchema = new Schema<debtType>({
     // userId: { type: String, required: true },
-    userId: String,
+    // balance: { type: Number, required: true },
+    // userId: String,
     name: { type: String, required: true },
-    balance: { type: Number, required: true },
+    totalAmount: { type: Number, required: true },
     interestRate: { type: Number, required: true },
     minimumPayment: { type: Number, required: true },
     createdAt: { type: Date, default: Date.now() }
