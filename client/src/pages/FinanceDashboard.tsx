@@ -91,9 +91,9 @@ const FinanceDashboard = () => {
     }
     fetchCategories();
   }, [])
-  const transactionsRecords = () => {
-    [...records].slice(-5).reverse()
-  }
+  // const transactionsRecords = () => {
+  //   [...records].slice(-5).reverse()
+  // }
   const cards = [
     {
       icon: BadgeIndianRupeeIcon,
