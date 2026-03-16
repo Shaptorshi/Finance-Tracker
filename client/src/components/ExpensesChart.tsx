@@ -29,7 +29,7 @@ export const ExpenseChart = ({ records }: { records: RecordType[] }) => {
     useEffect(() => {
         const fetchCategories = async () => {
             const token = localStorage.getItem(`loginToken`);
-            const response = await fetch(`http://localhost:3000/api/categories`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/categories`, {
                 method: `GET`,
                 headers: {
                     Authorization: `Bearer ${token}`,
