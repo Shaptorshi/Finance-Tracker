@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
+import {PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { useAuth } from '../context/userContext'
 
 const Login = () => {

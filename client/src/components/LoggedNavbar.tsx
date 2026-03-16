@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Menu, X, Search, Bell, User } from 'lucide-react'
-import { motion } from 'framer-motion'
+
 
 const LoggedNavbar = () => {
-  const navigate = useNavigate();
   const [info, setInfo] = useState({ name: '', email: '' })
   const [profile, setProfile] = useState(false)
   const [open, setOpen] = useState(false);

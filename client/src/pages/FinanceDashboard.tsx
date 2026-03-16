@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BadgeIndianRupeeIcon, BanknoteArrowDown, BanknoteArrowUp, PiggyBank, Plus, BarChart3, X } from 'lucide-react'
+import { BadgeIndianRupeeIcon, BanknoteArrowDown, BanknoteArrowUp, PiggyBank, Plus, X } from 'lucide-react'
 import { ExpenseChart, IncomeVsExpenseChart } from '../components/ExpensesChart'
 import Transactions from './Transactions';
 

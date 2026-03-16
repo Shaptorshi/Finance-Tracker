@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import SideBar from '../components/SideBar'
+
 
 type RecordType = {
   type: string,

@@ -11,7 +11,6 @@ type DebtType = {
 }
 
 
-
 const Debts = () => {
   const [isEditable, setIsEditable] = useState<string | null>(null)
   const [isPayable, setIsPayable] = useState(false);
@@ -51,12 +50,12 @@ const Debts = () => {
 
     try {
       const token = localStorage.getItem(`loginToken`);
-      if(!isEditable) return;
+      if (!isEditable) return;
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/debts/${isEditable}`, {
         method: `PUT`,
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type":"application/json"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           name: formData.name,
@@ -68,7 +67,7 @@ const Debts = () => {
       setRecords(prev => prev.map(debt => debt._id === isEditable ? updatedDebt : debt))
 
       setIsEditable(null);
-      
+
     } catch (error) {
       console.log({ message: error })
     }
