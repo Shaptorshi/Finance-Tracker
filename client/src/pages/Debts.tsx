@@ -46,6 +46,33 @@ const Debts = () => {
       minimumPayment: String(record.minimumPayment)
     })
   }
+  const handleUpdate = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    try {
+      const token = localStorage.getItem(`loginToken`);
+      if(!isEditable) return;
+      const response = await fetch(`http://localhost:3000/api/debts/${isEditable}`, {
+        method: `PUT`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type":"application/json"
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          interestRate: formData.interestRate
+        })
+      })
+
+      const updatedDebt = await response.json()
+      setRecords(prev => prev.map(debt => debt._id === isEditable ? updatedDebt : debt))
+
+      setIsEditable(null);
+      
+    } catch (error) {
+      console.log({ message: error })
+    }
+  }
   const handleDelete = async (id: string) => {
     try {
       const token = localStorage.getItem(`loginToken`);
@@ -124,7 +151,7 @@ const Debts = () => {
       const updatedDebt = await response.json();
 
       setRecords(prev => prev.map(debt => debt._id === selectedDebtId ? updatedDebt : debt))
-      setPayment(0);
+      setPayment('');
       setIsPayable(false);
       setSelectedDebtId(null)
 
@@ -135,7 +162,7 @@ const Debts = () => {
   }
   useEffect(() => {
     if (isPayable) {
-      setPayment(0)
+      setPayment('')
     }
   }, [isPayable])
 
@@ -243,10 +270,10 @@ const Debts = () => {
       <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 cascadia text-sm'>
         {filteredDebts.map((record: DebtType, idx) => {
           return (
-            <div>
+            <div key={record._id}>
               <div key={idx} className={`bg-white rounded-xl p-5 shadow-md border hover:shadow-lg transition ${idx === 0 ? "border-green-500 border-2" : ""}`}>
                 <h2 className='text-lg font-semibold mb-3'>{record.name}</h2>
-                {idx === 0 ? <p className='mb-2 text-green-600'>Pay this first!</p> : <p className='mb-2'></p>}
+                {idx === 0 ? <p className='mb-2 text-green-600'>Pay this first!</p> : <p className='text-gray-500 mb-2'>Pay this later</p>}
                 <div className='flex justify-between text-sm mb-2'>
                   <span className='text-gray-500'>Amount Payable</span>
                   <span className='font-medium'>₹{record.totalAmount}</span>
@@ -293,11 +320,11 @@ const Debts = () => {
       </div>
       <div>
         {isEditable && (
-          <div className='fixed inset-0 bg-black/40 flex items-center justify-center'>
+          <div className='fixed inset-0 bg-black/40 flex items-center justify-center cascadia'>
             <div className='bg-white p-6 rounded-lg w-100 shadow-lg'>
-              <h2 className='text-xl font-semibold mb-4'>Add New Debt</h2>
+              <h2 className='text-2xl font-semibold mb-4 samurai-font'>Add New Debt</h2>
               <div className='flex flex-col gap-3'>
-                <form onSubmit={handleSubmit} >
+                <form onSubmit={handleUpdate} >
 
                   <input
                     className='border p-2 rounded mb-3'
@@ -310,30 +337,14 @@ const Debts = () => {
                   <input
                     className='border p-2 rounded mb-3'
                     type="number"
-                    placeholder='Balance'
-                    name='balance'
-                    onChange={handleChange}
-                    value={formData.totalAmount}
-                  />
-                  <input
-                    className='border p-2 rounded mb-3'
-                    type="number"
                     placeholder='Interest Rate'
                     name='interestRate'
                     onChange={handleChange}
                     value={formData.interestRate}
                   />
-                  <input
-                    className='border p-2 rounded mb-3'
-                    type="number"
-                    placeholder='Minimum Payment'
-                    name='minimumPayment'
-                    onChange={handleChange}
-                    value={formData.minimumPayment}
-                  />
                   <div className='flex justify-end gap-3 mt-5'>
                     <button className='cursor-pointer px-4 py-2 border rounded hover:bg-black hover:text-white' type="button" onClick={handleCancel}>Cancel</button>
-                    <button className='px-4 py-2 rounded text-white bg-blue-600 cursor-pointer hover:bg-blue-700' type='submit'>Add Debt</button>
+                    <button className='px-4 py-2 rounded text-white bg-blue-600 cursor-pointer hover:bg-blue-700' type='submit'>Update changes</button>
                   </div>
                 </form>
               </div>
