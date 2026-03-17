@@ -4,33 +4,33 @@ const steps = [
   {
     title: "Create Your Account",
     desc: "Sign up and set up your financial dashboard.",
-    img: "/images/signup.png",
+    img: "../assets/undraw_secure-login_m11a.svg",
   },
   {
     title: "Add Income & Expenses",
     desc: "Track all your financial activity in one place.",
-    img: "/images/transactions.png",
+    img: "../assets/undraw_online-banking_l9sn.svg",
   },
   {
     title: "Add Debts",
     desc: "Include loans and credit cards to monitor repayment.",
-    img: "/images/debts.png",
+    img: "../assets/debts.jpg",
   },
   {
     title: "Smart Debt Strategy",
     desc: "Get intelligent recommendations to minimize debt faster.",
-    img: "/images/strategy.png",
+    img: "../assets/Business ethics-pana.svg",
   },
   {
     title: "Reach Financial Goals",
     desc: "Follow insights and become debt-free sooner.",
-    img: "/images/goals.png",
+    img: "../assets/undraw_savings.svg",
   },
 ];
 
 const Working = () => {
   return (
-    <section className="max-w-7xl mx-auto py-24 px-6">
+    <section className="max-w-7xl mx-auto py-24 px-6" id='working'>
 
       <div className="text-center mb-20">
         <h2 className="text-4xl font-bold samurai-font">How It Works</h2>

@@ -12,7 +12,7 @@ const Navbar = () => {
                 <p className='font-bold samurai-font text-2xl'>FinSense</p>
                 <ul className='hidden lg:flex gap-6 lg:gap-8 items-center'>
                     <li className='font-semibold samurai-font hover:text-[#1D4ED8] cursor-pointer transition-all duration-400 ease-in-out'><a href="#home">Home</a></li>
-                    <li className='font-semibold samurai-font hover:text-[#1D4ED8] cursor-pointer transition-all duration-400 ease-in-out'><a href="#about">About</a></li>
+                    <li className='font-semibold samurai-font hover:text-[#1D4ED8] cursor-pointer transition-all duration-400 ease-in-out'><a href="#about">Working</a></li>
                     <li className='font-semibold samurai-font hover:text-[#1D4ED8] cursor-pointer transition-all duration-400 ease-in-out'><a href="#features">Features</a></li>
                     <li className='font-semibold samurai-font hover:text-[#1D4ED8] cursor-pointer transition-all duration-400 ease-in-out'><a href="#services">Services</a></li>
                     <li className='font-semibold samurai-font hover:text-[#1D4ED8] cursor-pointer transition-all duration-400 ease-in-out'><a href="#contact">Contact</a></li>
