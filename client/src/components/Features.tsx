@@ -27,7 +27,7 @@ const f=[
 
 const Features = () => {
   return (
-    <section className='py-60 px-6 max-w-full'>
+    <section className='py-60 px-6 max-w-full' id='features'>
       <div className='text-center mb-15'>
         <h2 className='text-4xl font-bold samurai-font'>Powerful Features for Smarter Finance</h2>
         <p className='cascadia text-gray-500 max-w-xl mx-auto'>FinSense helps you track spending, manage debt, and make smarter financial decisions.</p>
