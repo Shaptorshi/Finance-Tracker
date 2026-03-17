@@ -1,30 +1,35 @@
 import {motion} from 'framer-motion'
+import login from '../assets/undraw_secure-login_m11a.svg'
+import transactions from '../assets/undraw_online-banking_l9sn.svg'
+import debts from '../assets/debts.jpg'
+import strategies from '../assets/Business ethics-pana.svg'
+import goals from '../assets/undraw_savings.svg'
 
 const steps = [
   {
     title: "Create Your Account",
     desc: "Sign up and set up your financial dashboard.",
-    img: "../assets/undraw_secure-login_m11a.svg",
+    img: login,
   },
   {
     title: "Add Income & Expenses",
     desc: "Track all your financial activity in one place.",
-    img: "../assets/undraw_online-banking_l9sn.svg",
+    img: transactions,
   },
   {
     title: "Add Debts",
     desc: "Include loans and credit cards to monitor repayment.",
-    img: "../assets/debts.jpg",
+    img: debts,
   },
   {
     title: "Smart Debt Strategy",
     desc: "Get intelligent recommendations to minimize debt faster.",
-    img: "../assets/Business ethics-pana.svg",
+    img: strategies,
   },
   {
     title: "Reach Financial Goals",
     desc: "Follow insights and become debt-free sooner.",
-    img: "../assets/undraw_savings.svg",
+    img: goals,
   },
 ];
 
